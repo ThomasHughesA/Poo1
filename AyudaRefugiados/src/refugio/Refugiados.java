@@ -91,7 +91,7 @@ public class Refugiados {
     Metodo Insertar
     */             
     
-    void ImprimirDatos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public  void ImprimirDatos() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

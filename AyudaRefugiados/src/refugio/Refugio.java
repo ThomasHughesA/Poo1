@@ -10,6 +10,8 @@ import java.util.HashMap;
 /**
  *
  * @author The_A
+ *
+ * 
  */
 public class Refugio {
     
@@ -18,8 +20,17 @@ public class Refugio {
     private int CantidadVoluntarios;
     private int CantidadRefugiados;
     private int CantidadMaxRefugiados;
-    private HashMap<String,Refugiados> Refugios;
+    private HashMap<String,Refugiados> Refugios=new HashMap<String,Refugiados>();
     
+    
+    /**
+     * 
+     * @param Nombre
+     * @param Direccion
+     * @param CantidadVoluntarios
+     * @param CantidadRefugiados
+     * @param CantidadMaxRefugiados 
+     */
     public Refugio(String Nombre, String Direccion, int CantidadVoluntarios, int CantidadRefugiados, int CantidadMaxRefugiados) {
         this.Nombre = Nombre;
         this.Direccion = Direccion;
@@ -30,7 +41,7 @@ public class Refugio {
 
     Refugio() {
     }
-
+    
     public String getNombre() {
         return Nombre;
     }
@@ -90,15 +101,33 @@ public class Refugio {
     }    
    
 */ 
-    public void AgregarRefugiado (Refugiados refugiado){
-        Refugios.put(refugiado.getIdRefugiado(),refugiado);
+    
+    
+    public boolean AgregarRefugiado (Refugiados refugiado){
+        if(Refugios.containsKey(refugiado.getIdRefugiado())==false){
+            Refugios.put(refugiado.getIdRefugiado(),refugiado);
+            return true;
+        }
+        return false;
     }
     
     public void imprimirRefugiados(){
-        Refugios.forEach(((k, v) -> {
-            System.out.println(k + " : "+v.toString());
-        }));
-    
+        Refugios.entrySet().forEach(entry->{
+            System.out.println("ID:"+entry.getKey() + " Nombre: " + entry.getValue().getNombre());  
+        }); 
     }
+    
+    public Boolean eliminarRefugiado(String oldId){
+        if(Refugios.containsKey(oldId)==true){
+            Refugios.remove(oldId);
+            return true;
+        }
+        return false;
+    }
+    
+    public void modificarRefugiados(String id,Refugiados refugiado){
+        Refugiados replace = Refugios.replace(id, refugiado);
+    }
+    
     
 }

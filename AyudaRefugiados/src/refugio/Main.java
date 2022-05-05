@@ -42,6 +42,7 @@ public class Main {
         refugio.AgregarRefugiado(refugiado1);
         refugio.AgregarRefugiado(refugiado2);
         refugio.AgregarRefugiado(refugiado3);
+        
         Menu();
         
     }
@@ -59,12 +60,14 @@ public class Main {
     do{
         System.out.println("1. Crear Refugiado");
         System.out.println("2. Imprimir Refugiados");
-        System.out.println("3. Crear Voluntario");
-        System.out.println("4. Imprimir Voluntarios");
-        System.out.println("5. Crear Refugio");
-        System.out.println("6. Imprimir Refugios");
-        
-        System.out.println("7. Salir");
+        System.out.println("3. Eliminar Refugiados");
+        System.out.println("4. Crear Voluntario");
+        System.out.println("5. Imprimir Voluntarios");
+        System.out.println("6. Eliminar Voluntarios");
+        System.out.println("7. Crear Refugio");
+        System.out.println("8. Imprimir Refugios");
+        System.out.println("9. Eliminar Refugio");
+        System.out.println("10. Salir");
 
         System.out.println("Elija una opción: ");
         Entrada=new Scanner(System.in);
@@ -82,7 +85,7 @@ public class Main {
                 switch(opcionRefugio){
                     
                     case 1:
-                        InsertarRefugiado(refugio1);                      
+                        refugio.AgregarRefugiado(InsertarRefugiado(refugio1));                 
                         /*---------------------------Retorno-----------------------*/
                         System.out.println("------------------------------------------------------------------------");
                         System.out.println("¿Desea realizar otra operación? : \n1. SI, VOLVER AL MENÚ PRINCIPAL. \n2. NO, CERRAR PROGRAMA.");
@@ -95,7 +98,7 @@ public class Main {
 
                     break;
                     case 2:
-                        InsertarRefugiado(refugio2);
+                        refugio.AgregarRefugiado(InsertarRefugiado(refugio2));                 
                         /*---------------------------Retorno-----------------------*/
                         System.out.println("------------------------------------------------------------------------");
                         System.out.println("¿Desea realizar otra operación? : \n1. SI, VOLVER AL MENÚ PRINCIPAL. \n2. NO, CERRAR PROGRAMA.");
@@ -107,7 +110,7 @@ public class Main {
                         }
                     break;   
                     case 3:
-                        InsertarRefugiado(refugio3);
+                        refugio.AgregarRefugiado(InsertarRefugiado(refugio3));                 
                         /*---------------------------Retorno-----------------------*/
                         System.out.println("------------------------------------------------------------------------");
                         System.out.println("¿Desea realizar otra operación? : \n1. SI, VOLVER AL MENÚ PRINCIPAL. \n2. NO, CERRAR PROGRAMA.");
@@ -128,29 +131,48 @@ public class Main {
             case 2:
                refugio.imprimirRefugiados();
             break;
+            //Eliminar refugiado
+            case 3:
+               System.out.println("Digite el id del refugiado a eliminar.");
+               String oldId=lector.readLine();
+               refugio.eliminarRefugiado(oldId);
+            break;
+            //Modificar Refugiado
 
             //Crear Voluntario
-            case 3:
+            case 4:
                 voluntarios.InsertarDatos();
             break;
-
             //Imprimir Voluntario
-            case 4:
-                voluntarios.ImprimirDatos();
-                
             case 5:
-                InsertarRefugio(refugios);
+                voluntarios.ImprimirDatos();
+            break; 
+            //Eliminar Voluntario
             case 6:
+            
+            break;
+            //Crear Refugio
+            case 7:
+                refugios.add(InsertarRefugio());
+            break;   
+            //Imprimir Refugio
+            case 8:
                 ImprimirRefugios(refugios);
+            break;
+            //Eliminar Refugio
+            case 9:
+                System.out.println("Digite el nombre del refugio a eliminar.");
+                String oldnombre=lector.readLine();
+                EliminarRefugio(oldnombre);
             break;
 
         }
 
-    }while(opcion!=7);
+    }while(opcion!=10);
 
     }
     
-     public static void InsertarRefugiado(Refugio refugio)throws IOException{
+     public static Refugiados InsertarRefugiado(Refugio refugio)throws IOException{
         
         String IdRefugiado,  Nombre,  Edad,  Sexo,  Nacionalidad, Estado;
         Scanner Entrada=new Scanner(System.in);
@@ -173,10 +195,10 @@ public class Main {
         Estado=Entrada.next();
         System.out.println("Refugiado registrado.");  
         Refugiados refugiado=new Refugiados(IdRefugiado,Nombre,Edad,Sexo,Nacionalidad,Estado);
-        refugio.AgregarRefugiado(refugiado);
+        return refugiado;
     }   
      
-    public static void InsertarRefugio(ArrayList<Refugio> refugios)throws IOException {
+    public static Refugio InsertarRefugio()throws IOException {
         String Nombre,Direccion;
         int CantidadVoluntarios, CantidadRefugiados,CantidadMaxRefugiados;
         Scanner Entrada=new Scanner(System.in);
@@ -198,8 +220,7 @@ public class Main {
         
         System.out.println("Refugio registrado.");  
         Refugio refugio=new Refugio(Nombre,Direccion,CantidadVoluntarios,CantidadRefugiados,CantidadMaxRefugiados);
-        refugios.add(refugio);
-        
+        return refugio;       
     } 
      
     public static void ImprimirRefugios(ArrayList<Refugio> refugios)throws IOException {
@@ -207,5 +228,13 @@ public class Main {
         System.out.println("IMPRIMIENDO REFUGIOS:");  
         refugios.forEach((k) -> System.out.println(k.getNombre()));
     }    
+    
+    public static boolean EliminarRefugio(String nombre)throws IOException{
+       if(refugios.contains(nombre)==true){
+           refugios.remove(nombre);
+           return true;
+       }
+       return false;
+    }
 }
 
