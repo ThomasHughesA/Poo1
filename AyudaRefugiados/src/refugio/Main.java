@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 /**
  *
@@ -53,7 +54,7 @@ public class Main {
     System.out.println("------------------------------------------------------------------------");
     System.out.println("******************Iniciando Aplicacion Refugiados**********************");
     System.out.println("------------------------------------------------------------------------");
-    System.out.println("------------------------------------------------------------------------\n");
+    System.out.print("------------------------------------------------------------------------\n");
 
     Scanner Entrada;
     int opcion,opcionRefugio;
@@ -230,11 +231,20 @@ public class Main {
     }    
     
     public static boolean EliminarRefugio(String nombre)throws IOException{
-       if(refugios.contains(nombre)==true){
-           refugios.remove(nombre);
-           return true;
+        Refugio refugio=BuscarPorNombre(nombre);
+        if(refugio!=null){
+            refugios.remove(refugio);
+            return true;
+        }
+        return false;
+    }
+    
+    public static Refugio BuscarPorNombre(String nombre){
+        for (int i=0;i<refugios.size();i++) {
+            if(refugios.get(i).getNombre().equals(nombre))
+                return refugios.get(i);
        }
-       return false;
+       return null;
     }
 }
 
