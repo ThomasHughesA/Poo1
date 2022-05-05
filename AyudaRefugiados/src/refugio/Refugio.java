@@ -128,6 +128,9 @@ public class Refugio {
     public void modificarRefugiados(String id,Refugiados refugiado){
         Refugiados replace = Refugios.replace(id, refugiado);
     }
+     public void modificarRefugiados(Refugiados refugiado,String id){
+        Refugiados replace = Refugios.replace(id, refugiado);
+    }
     
     
 }

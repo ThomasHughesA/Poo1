@@ -6,6 +6,7 @@
 package refugio;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -59,16 +60,22 @@ public class Main {
     Scanner Entrada;
     int opcion,opcionRefugio;
     do{
+        System.out.println("*************Refugiados*************");
         System.out.println("1. Crear Refugiado");
         System.out.println("2. Imprimir Refugiados");
         System.out.println("3. Eliminar Refugiados");
-        System.out.println("4. Crear Voluntario");
-        System.out.println("5. Imprimir Voluntarios");
-        System.out.println("6. Eliminar Voluntarios");
-        System.out.println("7. Crear Refugio");
-        System.out.println("8. Imprimir Refugios");
-        System.out.println("9. Eliminar Refugio");
-        System.out.println("10. Salir");
+        System.out.println("4. Modificar Refugiados");
+        System.out.println("*************Voluntarios*************");
+        System.out.println("5. Crear Voluntario");
+        System.out.println("6. Imprimir Voluntarios");
+        System.out.println("7. Eliminar Voluntarios");
+        System.out.println("8. Modificar Voluntarios");
+        System.out.println("*************Refugios*************");
+        System.out.println("9. Crear Refugio");
+        System.out.println("10. Imprimir Refugios");
+        System.out.println("11. Eliminar Refugio");
+        System.out.println("12. Modificar Refugio");
+        System.out.println("13. Salir");
 
         System.out.println("Elija una opción: ");
         Entrada=new Scanner(System.in);
@@ -139,41 +146,56 @@ public class Main {
                refugio.eliminarRefugiado(oldId);
             break;
             //Modificar Refugiado
-
-            //Crear Voluntario
             case 4:
+                System.out.println("Digite el id del refugiado a modificar.");
+                String IdModificar=lector.readLine();
+                refugio.modificarRefugiados(IdModificar,InsertarRefugiado(refugio1) );
+            break;
+            //Crear Voluntario
+            case 5:
                 voluntarios.InsertarDatos();
             break;
             //Imprimir Voluntario
-            case 5:
+            case 6:
                 voluntarios.ImprimirDatos();
             break; 
             //Eliminar Voluntario
-            case 6:
+            case 7:
+            
+            break;
+            //Modificar Voluntario
+            case 8:
             
             break;
             //Crear Refugio
-            case 7:
+            case 9:
                 refugios.add(InsertarRefugio());
             break;   
             //Imprimir Refugio
-            case 8:
+            case 10:
                 ImprimirRefugios(refugios);
+                //RefugioTxt();
             break;
             //Eliminar Refugio
-            case 9:
+            case 11:
                 System.out.println("Digite el nombre del refugio a eliminar.");
                 String oldnombre=lector.readLine();
                 EliminarRefugio(oldnombre);
             break;
+            //Modificar Refugio
+            case 12:
+                System.out.println("Digite el nombre del refugio a modificar.");
+                String nombreMod=lector.readLine();            
+                ModificarRefugio(nombreMod,InsertarRefugio());
+            break;
 
         }
 
-    }while(opcion!=10);
+    }while(opcion!=13);
 
     }
     
-     public static Refugiados InsertarRefugiado(Refugio refugio)throws IOException{
+    public static Refugiados InsertarRefugiado(Refugio refugio)throws IOException{
         
         String IdRefugiado,  Nombre,  Edad,  Sexo,  Nacionalidad, Estado;
         Scanner Entrada=new Scanner(System.in);
@@ -239,12 +261,30 @@ public class Main {
         return false;
     }
     
-    public static Refugio BuscarPorNombre(String nombre){
+    public static Refugio BuscarPorNombre(String nombre)throws IOException{
         for (int i=0;i<refugios.size();i++) {
             if(refugios.get(i).getNombre().equals(nombre))
                 return refugios.get(i);
        }
        return null;
+    }
+    
+    public static void RefugioTxt()throws IOException{
+        FileWriter fichero=new FileWriter("C:\\Users\\thtom\\OneDrive\\Documentos\\Poo 2\\EPA");
+            fichero.write("IMPRIMIENDO REFUGIOS:");  
+            for(int i=0;i<refugios.size();i++){
+               fichero.write(refugios.get(i).getNombre());
+            }
+            fichero.close();
+    }
+    
+    public static boolean ModificarRefugio(String nombre, Refugio refugio) throws IOException{
+        EliminarRefugio(nombre);
+        if(EliminarRefugio(nombre)==true){
+            refugios.add(refugio);
+            return true;
+        }
+        return false;
     }
 }
 
