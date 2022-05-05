@@ -132,7 +132,7 @@ public class Main {
             //Imprimir Refugio
             case 10:
                 ImprimirRefugios(refugios);
-                //RefugioTxt();
+                RefugioTxt();
             break;
             //Eliminar Refugio
             case 11:
