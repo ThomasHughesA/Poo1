@@ -103,7 +103,7 @@ public class Voluntarios {
         System.out.println("Digite el estado del refugiado.");
         Estado=Entrada.next();
         
-        Refugiados refugiados=new Refugiados(IdRefugiado, Nombre, Sexo, Edad, Nacionalidad, Estado);
+        Refugiado refugiados=new Refugiado(IdRefugiado, Nombre, Sexo, Edad, Nacionalidad, Estado);
         
         System.out.println("Refugiado registrado.");          
     }

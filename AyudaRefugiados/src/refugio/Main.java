@@ -20,15 +20,15 @@ import java.util.Scanner;
  */
 public class Main {
     
-    public static Refugiados refugiados = new Refugiados();
+    public static Refugiado refugiado = new Refugiado();
     public static Voluntarios voluntarios= new Voluntarios();
     public static Refugio refugio= new Refugio();
 
     public static ArrayList<Refugio> refugios =new ArrayList<Refugio>();
     
-    public static Refugiados refugiado1=new Refugiados ("1","Susana Castro Gonzalez","27","M","España","Heridas leves en el cuerpo");
-    public static Refugiados refugiado2=new Refugiados ("2","Cristian Vazquez Diaz","56","H","Chile","Sin heridas");
-    public static Refugiados refugiado3=new Refugiados ("3","Lionel Messi Sanchez","36","H","Argentina","Contusiones leves");
+    public static Refugiado refugiado1=new Refugiado ("1","Susana Castro Gonzalez","27","M","España","Heridas leves en el cuerpo");
+    public static Refugiado refugiado2=new Refugiado ("2","Cristian Vazquez Diaz","56","H","Chile","Sin heridas");
+    public static Refugiado refugiado3=new Refugiado ("3","Lionel Messi Sanchez","36","H","Argentina","Contusiones leves");
 
     
     public static Refugio refugio1=new Refugio("Jardines de la Paz","Avenida Brasil Nro 58",8,67,82);
@@ -41,9 +41,9 @@ public class Main {
         refugios.add(refugio2);
         refugios.add(refugio3);
         
-        refugio.AgregarRefugiado(refugiado1);
-        refugio.AgregarRefugiado(refugiado2);
-        refugio.AgregarRefugiado(refugiado3);
+        refugio.AgregarRefugio(refugio1,refugiado1);
+        refugio.AgregarRefugio(refugio2,refugiado2);
+        refugio.AgregarRefugio(refugio3,refugiado3);
         
         Menu();
         
@@ -85,54 +85,12 @@ public class Main {
         switch(opcion){
             //Crear Refugiado
             case 1:
-                System.out.println("Seleccione el refugio donde ingresará el refugiado");
                 System.out.println("1. "+ refugio1.getNombre());
                 System.out.println("2. "+ refugio2.getNombre());
                 System.out.println("3. "+ refugio3.getNombre());
-                do{
-                switch(opcionRefugio){
-                    
-                    case 1:
-                        refugio.AgregarRefugiado(InsertarRefugiado(refugio1));                 
-                        /*---------------------------Retorno-----------------------*/
-                        System.out.println("------------------------------------------------------------------------");
-                        System.out.println("¿Desea realizar otra operación? : \n1. SI, VOLVER AL MENÚ PRINCIPAL. \n2. NO, CERRAR PROGRAMA.");
-                        int opcionRetornoCrearRefugiado;
-                        opcionRetornoCrearRefugiado = Integer.parseInt(lector.readLine());
-
-                        if(opcionRetornoCrearRefugiado == 1 ){
-                            Menu();
-                        }
-
-                    break;
-                    case 2:
-                        refugio.AgregarRefugiado(InsertarRefugiado(refugio2));                 
-                        /*---------------------------Retorno-----------------------*/
-                        System.out.println("------------------------------------------------------------------------");
-                        System.out.println("¿Desea realizar otra operación? : \n1. SI, VOLVER AL MENÚ PRINCIPAL. \n2. NO, CERRAR PROGRAMA.");
-                        int opcionRetornoCrearRefugiado2;
-                        opcionRetornoCrearRefugiado2 = Integer.parseInt(lector.readLine());
-
-                        if(opcionRetornoCrearRefugiado2 == 1 ){
-                            Menu();
-                        }
-                    break;   
-                    case 3:
-                        refugio.AgregarRefugiado(InsertarRefugiado(refugio3));                 
-                        /*---------------------------Retorno-----------------------*/
-                        System.out.println("------------------------------------------------------------------------");
-                        System.out.println("¿Desea realizar otra operación? : \n1. SI, VOLVER AL MENÚ PRINCIPAL. \n2. NO, CERRAR PROGRAMA.");
-                        int opcionRetornoCrearRefugiado3;
-                        opcionRetornoCrearRefugiado3 = Integer.parseInt(lector.readLine());
-
-                        if(opcionRetornoCrearRefugiado3 == 1 ){
-                            Menu();
-                        }
-
-                        
-                    break;
-                }    
-                }while(opcion!=4); 
+                System.out.println("Digite el nombre del refugio donde se quedara el refugiado");
+                String nombreRefugio=lector.readLine();
+                refugio.AgregarRefugio(InsertarRefugiado(refugio1),BuscarPorNombre(nombreRefugio));                 
             break;
 
             //Imprimir Refugiado
@@ -195,7 +153,7 @@ public class Main {
 
     }
     
-    public static Refugiados InsertarRefugiado(Refugio refugio)throws IOException{
+    public static Refugiado InsertarRefugiado(Refugio refugio)throws IOException{
         
         String IdRefugiado,  Nombre,  Edad,  Sexo,  Nacionalidad, Estado;
         Scanner Entrada=new Scanner(System.in);
@@ -217,7 +175,7 @@ public class Main {
         System.out.println("Digite el estado del refugiado.");
         Estado=Entrada.next();
         System.out.println("Refugiado registrado.");  
-        Refugiados refugiado=new Refugiados(IdRefugiado,Nombre,Edad,Sexo,Nacionalidad,Estado);
+        Refugiado refugiado=new Refugiado(IdRefugiado,Nombre,Edad,Sexo,Nacionalidad,Estado);
         return refugiado;
     }   
      

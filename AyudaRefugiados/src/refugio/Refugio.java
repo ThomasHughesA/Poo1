@@ -5,6 +5,7 @@
  */
 package refugio;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -20,7 +21,7 @@ public class Refugio {
     private int CantidadVoluntarios;
     private int CantidadRefugiados;
     private int CantidadMaxRefugiados;
-    private HashMap<String,Refugiados> Refugios=new HashMap<String,Refugiados>();
+    private HashMap<String,ArrayList<Refugiado>> Refugiados=new HashMap<String,ArrayList<Refugiado>>();
     
     
     /**
@@ -81,55 +82,74 @@ public class Refugio {
     public void setCantidadMaxRefugiados(int CantidadMaxRefugiados) {
         this.CantidadMaxRefugiados = CantidadMaxRefugiados;
     }
-    
 
-    
-/*   
-    public void AgregarRefugio (Refugio refugio, Refugiados refugiado){
-        ArrayList<Refugiados> lista;
-        lista = new ArrayList<Refugiados>();
+    public void AgregarRefugio (Refugio refugio, Refugiado refugiado){
+        ArrayList<Refugiado> lista;
+        lista = Refugiados.get(refugio.getNombre());
+        boolean flag = Refugiados.containsKey(refugio.getNombre());
+        if (flag == false){   
+            //creo
+            ArrayList<Refugiado> lista1=new ArrayList<Refugiado>();
+            //agrego
+            lista1.add(refugiado);
+            //añado al mapa
+            Refugiados.put(refugio.getNombre(), lista1);
+            return ;
+        }        
         lista.add(refugiado);
-        Refugios.put(refugio.getNombre(),lista);
-
     }
-    public void AgregarRefugio (Refugiados refugiado,Refugio refugio){
-        ArrayList<Refugiados> lista;
-        lista = new ArrayList<Refugiados>();
+    public void AgregarRefugio (Refugiado refugiado,Refugio refugio){
+        ArrayList<Refugiado> lista;
+        lista = Refugiados.get(refugio.getNombre());
+        boolean flag = Refugiados.containsKey(refugio.getNombre());
+        if (flag == false){   
+            //creo
+            ArrayList<Refugiado> lista1=new ArrayList<Refugiado>();
+            //agrego
+            lista1.add(refugiado);
+            //añado al mapa
+            Refugiados.put(refugio.getNombre(), lista1);
+            return ;
+        }        
         lista.add(refugiado);
-        Refugios.put(refugio.getNombre(),lista);
-
-    }    
+    }
    
-*/ 
     
     
-    public boolean AgregarRefugiado (Refugiados refugiado){
-        if(Refugios.containsKey(refugiado.getIdRefugiado())==false){
-            Refugios.put(refugiado.getIdRefugiado(),refugiado);
+   /* public boolean AgregarRefugiado (Refugiados refugiado){
+        if(Refugiados.containsKey(refugiado.getIdRefugiado())==false){
+            Refugiados.put(refugiado.getIdRefugiado(),refugiado);
             return true;
         }
         return false;
-    }
+    }*/
     
     public void imprimirRefugiados(){
-        Refugios.entrySet().forEach(entry->{
-            System.out.println("ID:"+entry.getKey() + " Nombre: " + entry.getValue().getNombre());  
+        Refugiados.entrySet().forEach(entry->{
+            System.out.print("Refugio: "+entry.getKey());  
+            System.out.print(" Refugiados: ");
+            entry.getValue().forEach((k) -> System.out.print(k.getNombre()+", "));
+            System.out.println(" ");
         }); 
     }
     
     public Boolean eliminarRefugiado(String oldId){
-        if(Refugios.containsKey(oldId)==true){
-            Refugios.remove(oldId);
+        if(Refugiados.containsKey(oldId)==true){
+            Refugiados.remove(oldId);
             return true;
         }
         return false;
     }
     
-    public void modificarRefugiados(String id,Refugiados refugiado){
-        Refugiados replace = Refugios.replace(id, refugiado);
+    public void modificarRefugiados(String id,Refugiado refugiado){
+        ArrayList<Refugiado> lista;
+        lista = new ArrayList<Refugiado>();
+        ArrayList<Refugiado> replace = Refugiados.replace(id, lista);
     }
-     public void modificarRefugiados(Refugiados refugiado,String id){
-        Refugiados replace = Refugios.replace(id, refugiado);
+     public void modificarRefugiados(Refugiado refugiado,String id){
+        ArrayList<Refugiado> lista;
+        lista = new ArrayList<Refugiado>();
+        ArrayList<Refugiado> replace = Refugiados.replace(id, lista);
     }
     
     
