@@ -5,79 +5,33 @@
  */
 package refugio;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 /**
  *
  * @author The_A
  */
-public class Refugiado {
+public class Refugiado extends Persona implements InterfaceMetodos{
     
     //Globales
     
 //Privadas
-    private String IdRefugiado;
-    private String Nombre;
-    private String Edad;
-    private String Sexo;
-    private String Nacionalidad;
     private String Estado;
-/*
+    private HashMap<String,ArrayList<Refugiado>> Refugiados=new HashMap<String,ArrayList<Refugiado>>();
+/*  
     Constructor 
     */
-    public Refugiado() {
-        
-    }
     
-    public Refugiado(String IdRefugiado, String Nombre, String Edad, String Sexo, String Nacionalidad, String Estado) {
-        this.IdRefugiado = IdRefugiado;
-        this.Nombre = Nombre;
-        this.Edad = Edad;
-        this.Sexo = Sexo;
-        this.Nacionalidad = Nacionalidad;
-        this.Estado = Estado;
-    }
 
-    public String getIdRefugiado() {
-        return IdRefugiado;
-    }
-
-    public void setIdRefugiado(String IdRefugiado) {
-        this.IdRefugiado = IdRefugiado;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
-
-    public String getEdad() {
-        return Edad;
-    }
-
-    public void setEdad(String Edad) {
-        this.Edad = Edad;
-    }
-
-    public String getSexo() {
-        return Sexo;
-    }
-
-    public void setSexo(String Sexo) {
-        this.Sexo = Sexo;
-    }
-
-    public String getNacionalidad() {
-        return Nacionalidad;
-    }
-
-    public void setNacionalidad(String Nacionalidad) {
-        this.Nacionalidad = Nacionalidad;
-    }
+    public Refugiado(String Rut, String Nombre, int Edad, String Sexo, String Nacionalidad,String Estado) {
+        super(Rut, Nombre, Edad, Sexo, Nacionalidad);
+        this.Estado=Estado; 
+    }   
 
     public String getEstado() {
         return Estado;
@@ -87,11 +41,129 @@ public class Refugiado {
         this.Estado = Estado;
     }
 
+    public Refugiado getRefugiado(){
+        Refugiado refugiado=new Refugiado(getRut(),getNombre(),getEdad(),getSexo(),getNacionalidad(),Estado);
+        return refugiado;
+    }   
 /*
     Metodo Insertar
     */             
+        
+    public Refugiado InsertarRefugiado(Refugio refugio)throws IOException{       
+        String IdRefugiado,  Nombre,  Sexo,  Nacionalidad, Estado;
+        int Edad;
+        BufferedReader lector = new BufferedReader (new InputStreamReader(System.in));
+        Scanner Entrada=new Scanner(System.in);
+        System.out.println("Digite el ID del refugiado.");
+        IdRefugiado=Entrada.next();
+        
+        System.out.println("Digite el nombre.");
+        Nombre=Entrada.next();
+        
+        System.out.println("Digite el sexo.");
+        Sexo=Entrada.next();
+        
+        System.out.println("Digite la edad.");
+        Edad=Integer.parseInt(lector.readLine());
+        
+        System.out.println("Digite la nacionalidad.");
+        Nacionalidad=Entrada.next();
+        
+        System.out.println("Digite el estado del refugiado.");
+        Estado=Entrada.next();
+        System.out.println("Refugiado registrado."); 
+        Persona persona =new Persona(IdRefugiado,Nombre,Edad,Sexo,Nacionalidad);
+        Refugiado refugiado=new Refugiado(IdRefugiado,Nombre,Edad,Sexo,Nacionalidad,Estado);
+        return refugiado;
+    }   
+     
+    public void AgregarRefugio (Refugio refugio, Refugiado refugiado){
+        ArrayList<Refugiado> lista;
+        lista = Refugiados.get(refugio.getNombre());
+        boolean flag = Refugiados.containsKey(refugio.getNombre());
+        if (flag == false){   
+            //creo
+            ArrayList<Refugiado> lista1=new ArrayList<Refugiado>();
+            //agrego
+            lista1.add(refugiado);
+            //añado al mapa
+            Refugiados.put(refugio.getNombre(), lista1);
+            return ;
+        }        
+        lista.add(refugiado);
+    }
     
-    public  void ImprimirDatos() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void AgregarRefugio (Refugiado refugiado,Refugio refugio){
+        ArrayList<Refugiado> lista;
+        lista = Refugiados.get(refugio.getNombre());
+        boolean flag = Refugiados.containsKey(refugio.getNombre());
+        if (flag == false){   
+            //creo
+            ArrayList<Refugiado> lista1=new ArrayList<Refugiado>();
+            //agrego
+            lista1.add(refugiado);
+            //añado al mapa
+            Refugiados.put(refugio.getNombre(), lista1);
+            return ;
+        }        
+        lista.add(refugiado);
+    }
+   
+    @Override
+    public void Imprimir()throws IOException{
+        Refugiados.entrySet().forEach(entry->{
+            System.out.print("Refugio: "+entry.getKey());  
+            System.out.print(" Refugiados: ");
+            entry.getValue().forEach((k) -> System.out.print(k.getNombre()+", "));
+            System.out.println(" ");
+        }); 
+    }
+    public void eliminarRefugiado(String id){
+        Refugiados.entrySet().forEach((Map.Entry<String, ArrayList<Refugiado>> entry)->{
+            for (int i=0;i<entry.getValue().size();i++){
+                    if(entry.getValue().get(i).getRut().equals(id)){
+                       entry.getValue().remove(i);
+                    }
+            }                  
+        });
+    }
+
+    public void modificarRefugiados(String id,Refugiado refugiado){
+        ArrayList<Refugiado> lista;
+        lista = new ArrayList<Refugiado>();
+        ArrayList<Refugiado> replace = Refugiados.replace(id, lista);
+    }
+    
+    public void modificarRefugiados(Refugiado refugiado,String id){
+        ArrayList<Refugiado> lista;
+        lista = new ArrayList<Refugiado>();
+        ArrayList<Refugiado> replace = Refugiados.replace(id, lista);
+    }
+    
+   
+    public Refugiado refugiadoMasAños(){
+        int edadMayor=0;
+        Refugiado refugiadoMayor=null;   
+        for (Map.Entry<String, ArrayList<Refugiado>> entry: Refugiados.entrySet()) {
+            for (int i=0;i<entry.getValue().size();i++){
+                    if(entry.getValue().get(i).getEdad()>edadMayor){
+                        refugiadoMayor = entry.getValue().get(i);
+                        edadMayor=refugiadoMayor.getEdad(); 
+                    }
+            }
+        }
+        return refugiadoMayor;     
+    }
+    
+    public void imprimirRefugiadosMismoPais(String nacionalidad){
+        System.out.println("Refugiados de la nación "+nacionalidad+": Rut         Nombre ");
+        Refugiados.entrySet().forEach((Map.Entry<String, ArrayList<Refugiado>> entry)->{
+           for (int i=0;i<entry.getValue().size();i++){
+                   if(entry.getValue().get(i).getNacionalidad().equals(nacionalidad)){                     
+                       System.out.println("                                 "+entry.getValue().get(i).getRut()+"         "+entry.getValue().get(i).getNombre());
+                       
+                   }
+           }
+        }); 
     }
 }

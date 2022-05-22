@@ -5,8 +5,12 @@
  */
 package refugio;
 
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  *
@@ -14,16 +18,15 @@ import java.util.HashMap;
  *
  * 
  */
-public class Refugio {
+public class Refugio implements InterfaceMetodos{
     
     private String Nombre;
     private String Direccion;
     private int CantidadVoluntarios;
     private int CantidadRefugiados;
     private int CantidadMaxRefugiados;
-    private HashMap<String,ArrayList<Refugiado>> Refugiados=new HashMap<String,ArrayList<Refugiado>>();
     
-    
+    public static ArrayList<Refugio> refugios =new ArrayList<Refugio>();
     /**
      * 
      * @param Nombre
@@ -81,76 +84,77 @@ public class Refugio {
 
     public void setCantidadMaxRefugiados(int CantidadMaxRefugiados) {
         this.CantidadMaxRefugiados = CantidadMaxRefugiados;
-    }
-
-    public void AgregarRefugio (Refugio refugio, Refugiado refugiado){
-        ArrayList<Refugiado> lista;
-        lista = Refugiados.get(refugio.getNombre());
-        boolean flag = Refugiados.containsKey(refugio.getNombre());
-        if (flag == false){   
-            //creo
-            ArrayList<Refugiado> lista1=new ArrayList<Refugiado>();
-            //agrego
-            lista1.add(refugiado);
-            //añado al mapa
-            Refugiados.put(refugio.getNombre(), lista1);
-            return ;
-        }        
-        lista.add(refugiado);
-    }
-    public void AgregarRefugio (Refugiado refugiado,Refugio refugio){
-        ArrayList<Refugiado> lista;
-        lista = Refugiados.get(refugio.getNombre());
-        boolean flag = Refugiados.containsKey(refugio.getNombre());
-        if (flag == false){   
-            //creo
-            ArrayList<Refugiado> lista1=new ArrayList<Refugiado>();
-            //agrego
-            lista1.add(refugiado);
-            //añado al mapa
-            Refugiados.put(refugio.getNombre(), lista1);
-            return ;
-        }        
-        lista.add(refugiado);
-    }
-   
+    }  
     
     
-   /* public boolean AgregarRefugiado (Refugiados refugiado){
-        if(Refugiados.containsKey(refugiado.getIdRefugiado())==false){
-            Refugiados.put(refugiado.getIdRefugiado(),refugiado);
-            return true;
-        }
-        return false;
-    }*/
+    public  Refugio InsertarRefugio()throws IOException {
+        String Nombre,Direccion;
+        int CantidadVoluntarios, CantidadRefugiados,CantidadMaxRefugiados;
+        Scanner Entrada=new Scanner(System.in);
+        BufferedReader lector = new BufferedReader (new InputStreamReader(System.in));
+        System.out.println("Digite el nombre.");
+        Nombre=Entrada.next();
+        
+        System.out.println("Digite el direccion.");
+        Direccion=Entrada.next();
+        
+        System.out.println("Digite la Cantidad de Voluntarios que hayen el refugio.");
+        CantidadVoluntarios=Integer.parseInt(lector.readLine());
+                
+        System.out.println("Digite la Cantidad de refugiados que hay en el refugio.");
+        CantidadRefugiados=Integer.parseInt(lector.readLine());
+        
+        System.out.println("Digite el cupo Maximo de Refugiados que tiene el refugio.");
+        CantidadMaxRefugiados=Integer.parseInt(lector.readLine());
+        
+        System.out.println("Refugio registrado.");  
+        Refugio refugio=new Refugio(Nombre,Direccion,CantidadVoluntarios,CantidadRefugiados,CantidadMaxRefugiados);
+        return refugio;       
+    } 
     
-    public void imprimirRefugiados(){
-        Refugiados.entrySet().forEach(entry->{
-            System.out.print("Refugio: "+entry.getKey());  
-            System.out.print(" Refugiados: ");
-            entry.getValue().forEach((k) -> System.out.print(k.getNombre()+", "));
-            System.out.println(" ");
-        }); 
+    public void agregar(Refugio refugio1){
+        refugios.add(refugio1);
     }
     
-    public Boolean eliminarRefugiado(String oldId){
-        if(Refugiados.containsKey(oldId)==true){
-            Refugiados.remove(oldId);
+    @Override
+    public void Imprimir()throws IOException {
+        //Imprimir refugiados - HashMap
+        System.out.println("IMPRIMIENDO REFUGIOS:");  
+        refugios.forEach((k) -> System.out.println(k.getNombre()));
+    }    
+    
+    public boolean EliminarRefugio(String nombre)throws IOException{
+        Refugio refugio=BuscarPorNombre(nombre);
+        if(refugio!=null){
+            refugios.remove(refugio);
             return true;
         }
         return false;
     }
     
-    public void modificarRefugiados(String id,Refugiado refugiado){
-        ArrayList<Refugiado> lista;
-        lista = new ArrayList<Refugiado>();
-        ArrayList<Refugiado> replace = Refugiados.replace(id, lista);
-    }
-     public void modificarRefugiados(Refugiado refugiado,String id){
-        ArrayList<Refugiado> lista;
-        lista = new ArrayList<Refugiado>();
-        ArrayList<Refugiado> replace = Refugiados.replace(id, lista);
+    public Refugio BuscarPorNombre(String nombre)throws IOException{
+        for (int i=0;i<refugios.size();i++) {
+            if(refugios.get(i).getNombre().equals(nombre))
+                return refugios.get(i);
+       }
+       return null;
     }
     
+    public  void RefugioTxt()throws IOException{
+        try (FileWriter fichero = new FileWriter("C:\\Users\\thtom\\OneDrive\\Documentos\\Poo 2\\EPA")) {
+            fichero.write("IMPRIMIENDO REFUGIOS:");  
+            for(int i=0;i<refugios.size();i++){
+                fichero.write(refugios.get(i).getNombre());
+            }
+        }
+    }
     
+    public boolean ModificarRefugio(String nombre,Refugio refugio) throws IOException{
+        EliminarRefugio(nombre);
+        if(EliminarRefugio(nombre)==true){
+            refugios.add(refugio);
+            return true;
+        }
+        return false;
+    }
 }

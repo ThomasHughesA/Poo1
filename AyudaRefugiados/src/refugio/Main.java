@@ -6,29 +6,24 @@
 package refugio;
 
 import java.io.BufferedReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 /**
  *
  * @author The_A
  */
-public class Main {
-    
-    public static Refugiado refugiado = new Refugiado();
-    public static Voluntarios voluntarios= new Voluntarios();
+public class Main  {
+    public static Voluntario voluntarios= new Voluntario("1","Susana Castro Gonzalez",27,"M","España","Heridas leves en el cuerpo");
     public static Refugio refugio= new Refugio();
+    public static Refugiado refugiado= new Refugiado("1","Susana Castro Gonzalez",27,"M","España","Heridas leves en el cuerpo");
 
-    public static ArrayList<Refugio> refugios =new ArrayList<Refugio>();
+
     
-    public static Refugiado refugiado1=new Refugiado ("1","Susana Castro Gonzalez","27","M","España","Heridas leves en el cuerpo");
-    public static Refugiado refugiado2=new Refugiado ("2","Cristian Vazquez Diaz","56","H","Chile","Sin heridas");
-    public static Refugiado refugiado3=new Refugiado ("3","Lionel Messi Sanchez","36","H","Argentina","Contusiones leves");
+    public static Refugiado refugiado1=new Refugiado ("1","Susana Castro Gonzalez",27,"M","España","Heridas leves en el cuerpo");
+    public static Refugiado refugiado2=new Refugiado ("2","Cristian Vazquez Diaz",56,"H","Chile","Sin heridas");
+    public static Refugiado refugiado3=new Refugiado ("3","Lionel Messi Sanchez",36,"H","Chile","Contusiones leves");
 
     
     public static Refugio refugio1=new Refugio("Jardines de la Paz","Avenida Brasil Nro 58",8,67,82);
@@ -37,13 +32,13 @@ public class Main {
     
     
     public static void main(String[] args)throws ParseException, IOException{
-        refugios.add(refugio1);
-        refugios.add(refugio2);
-        refugios.add(refugio3);
+        refugio.agregar(refugio1);
+        refugio.agregar(refugio2);
+        refugio.agregar(refugio3);
         
-        refugio.AgregarRefugio(refugio1,refugiado1);
-        refugio.AgregarRefugio(refugio2,refugiado2);
-        refugio.AgregarRefugio(refugio3,refugiado3);
+        refugiado.AgregarRefugio(refugio1,refugiado1);
+        refugiado.AgregarRefugio(refugio2,refugiado2);
+        refugiado.AgregarRefugio(refugio3,refugiado3);
         
         Menu();
         
@@ -75,7 +70,10 @@ public class Main {
         System.out.println("10. Imprimir Refugios");
         System.out.println("11. Eliminar Refugio");
         System.out.println("12. Modificar Refugio");
-        System.out.println("13. Salir");
+        System.out.println("*************Opciones Negocio*************");
+        System.out.println("13. Imprimir todos los refugiados de una misma nacionalidad");
+        System.out.println("14. Imprimir el refugiado con mas años");
+        System.out.println("15. Salir");
 
         System.out.println("Elija una opción: ");
         Entrada=new Scanner(System.in);
@@ -90,24 +88,26 @@ public class Main {
                 System.out.println("3. "+ refugio3.getNombre());
                 System.out.println("Digite el nombre del refugio donde se quedara el refugiado");
                 String nombreRefugio=lector.readLine();
-                refugio.AgregarRefugio(InsertarRefugiado(refugio1),BuscarPorNombre(nombreRefugio));                 
+                refugiado.AgregarRefugio(refugiado.InsertarRefugiado(refugio1),refugio.BuscarPorNombre(nombreRefugio));                 
             break;
 
             //Imprimir Refugiado
             case 2:
-               refugio.imprimirRefugiados();
+               refugiado.Imprimir();
             break;
             //Eliminar refugiado
             case 3:
                System.out.println("Digite el id del refugiado a eliminar.");
                String oldId=lector.readLine();
-               refugio.eliminarRefugiado(oldId);
+               refugiado.eliminarRefugiado(oldId);
             break;
+
+
             //Modificar Refugiado
             case 4:
                 System.out.println("Digite el id del refugiado a modificar.");
                 String IdModificar=lector.readLine();
-                refugio.modificarRefugiados(IdModificar,InsertarRefugiado(refugio1) );
+                refugiado.modificarRefugiados(IdModificar,refugiado.InsertarRefugiado(refugio1) );
             break;
             //Crear Voluntario
             case 5:
@@ -127,24 +127,32 @@ public class Main {
             break;
             //Crear Refugio
             case 9:
-                refugios.add(InsertarRefugio());
+                refugio.agregar(refugio.InsertarRefugio());
             break;   
             //Imprimir Refugio
             case 10:
-                ImprimirRefugios(refugios);
-                RefugioTxt();
+                refugio.Imprimir();
+               // RefugioTxt();
             break;
             //Eliminar Refugio
             case 11:
                 System.out.println("Digite el nombre del refugio a eliminar.");
                 String oldnombre=lector.readLine();
-                EliminarRefugio(oldnombre);
+                refugio.EliminarRefugio(oldnombre);
             break;
             //Modificar Refugio
             case 12:
                 System.out.println("Digite el nombre del refugio a modificar.");
                 String nombreMod=lector.readLine();            
-                ModificarRefugio(nombreMod,InsertarRefugio());
+                refugio.ModificarRefugio(nombreMod,refugio.InsertarRefugio());
+            break;
+            case 13:
+                System.out.println("Digite el pais de los refugiados a mostrar.");
+                String pais=lector.readLine();
+                refugiado.imprimirRefugiadosMismoPais(pais);
+            break;    
+            case 14:
+                System.out.println("El refugiado con mas años es "+refugiado.refugiadoMasAños().getNombre()+" tiene "+refugiado.refugiadoMasAños().getEdad()+" años.");
             break;
 
         }
@@ -152,97 +160,8 @@ public class Main {
     }while(opcion!=13);
 
     }
-    
-    public static Refugiado InsertarRefugiado(Refugio refugio)throws IOException{
-        
-        String IdRefugiado,  Nombre,  Edad,  Sexo,  Nacionalidad, Estado;
-        Scanner Entrada=new Scanner(System.in);
-        System.out.println("Digite el ID del refugiado.");
-        IdRefugiado=Entrada.next();
-        
-        System.out.println("Digite el nombre.");
-        Nombre=Entrada.next();
-        
-        System.out.println("Digite el sexo.");
-        Sexo=Entrada.next();
-        
-        System.out.println("Digite la edad.");
-        Edad=Entrada.next();
-        
-        System.out.println("Digite la nacionalidad.");
-        Nacionalidad=Entrada.next();
-        
-        System.out.println("Digite el estado del refugiado.");
-        Estado=Entrada.next();
-        System.out.println("Refugiado registrado.");  
-        Refugiado refugiado=new Refugiado(IdRefugiado,Nombre,Edad,Sexo,Nacionalidad,Estado);
-        return refugiado;
-    }   
-     
-    public static Refugio InsertarRefugio()throws IOException {
-        String Nombre,Direccion;
-        int CantidadVoluntarios, CantidadRefugiados,CantidadMaxRefugiados;
-        Scanner Entrada=new Scanner(System.in);
-        BufferedReader lector = new BufferedReader (new InputStreamReader(System.in));
-        System.out.println("Digite el nombre.");
-        Nombre=Entrada.next();
-        
-        System.out.println("Digite el direccion.");
-        Direccion=Entrada.next();
-        
-        System.out.println("Digite la Cantidad de Voluntarios que hayen el refugio.");
-        CantidadVoluntarios=Integer.parseInt(lector.readLine());
-                
-        System.out.println("Digite la Cantidad de refugiados que hay en el refugio.");
-        CantidadRefugiados=Integer.parseInt(lector.readLine());
-        
-        System.out.println("Digite el cupo Maximo de Refugiados que tiene el refugio.");
-        CantidadMaxRefugiados=Integer.parseInt(lector.readLine());
-        
-        System.out.println("Refugio registrado.");  
-        Refugio refugio=new Refugio(Nombre,Direccion,CantidadVoluntarios,CantidadRefugiados,CantidadMaxRefugiados);
-        return refugio;       
-    } 
-     
-    public static void ImprimirRefugios(ArrayList<Refugio> refugios)throws IOException {
-        //Imprimir refugiados - HashMap
-        System.out.println("IMPRIMIENDO REFUGIOS:");  
-        refugios.forEach((k) -> System.out.println(k.getNombre()));
-    }    
-    
-    public static boolean EliminarRefugio(String nombre)throws IOException{
-        Refugio refugio=BuscarPorNombre(nombre);
-        if(refugio!=null){
-            refugios.remove(refugio);
-            return true;
-        }
-        return false;
-    }
-    
-    public static Refugio BuscarPorNombre(String nombre)throws IOException{
-        for (int i=0;i<refugios.size();i++) {
-            if(refugios.get(i).getNombre().equals(nombre))
-                return refugios.get(i);
-       }
-       return null;
-    }
-    
-    public static void RefugioTxt()throws IOException{
-        FileWriter fichero=new FileWriter("C:\\Users\\thtom\\OneDrive\\Documentos\\Poo 2\\EPA");
-            fichero.write("IMPRIMIENDO REFUGIOS:");  
-            for(int i=0;i<refugios.size();i++){
-               fichero.write(refugios.get(i).getNombre());
-            }
-            fichero.close();
-    }
-    
-    public static boolean ModificarRefugio(String nombre, Refugio refugio) throws IOException{
-        EliminarRefugio(nombre);
-        if(EliminarRefugio(nombre)==true){
-            refugios.add(refugio);
-            return true;
-        }
-        return false;
-    }
+  
+ 
+
 }
 
