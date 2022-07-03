@@ -4,16 +4,16 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/Interface/Menu.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/Refugio.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/Almacen.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/Persona.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/Refugiado.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/Interface.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/InterfaceMetodos.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/Main.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/Refugio.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/Ciudad.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/InterfaceMetodos.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/Interface/Refugiados.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/Refugiado.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/Interface.java</file>
             <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/Interface/Refugios.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/refugio/Ciudad.java</file>
-            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/Interface/Login.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/Voluntario.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/Persona.java</file>
+            <file>file:/C:/Users/thtom/OneDrive/Documentos/Poo%202/EP4/AyudaRefugiados/src/AyudaRefugio/Main.java</file>
         </group>
     </open-files>
 </project-private>

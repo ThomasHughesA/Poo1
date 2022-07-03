@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -47,17 +47,47 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Actualizar" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="946" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jScrollPane1" min="-2" pref="980" max="-2" attributes="0"/>
+                          <EmptySpace pref="59" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="TextNombreRefugio" alignment="0" min="-2" pref="155" max="-2" attributes="0"/>
+                              <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="elimar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="TextDireccionRefugio" min="-2" pref="145" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                  <Component id="TextCanRefugiadosRefugio" min="-2" pref="164" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="TextVoluntariosRefugio" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="TextCupoRefugio" min="-2" pref="160" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="BuscarRefugio" min="-2" pref="255" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
+                          <Component id="Actualizar" min="-2" pref="108" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="Mostar" min="-2" pref="117" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="93" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -67,16 +97,38 @@
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BuscarRefugio" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="BuscarRefugio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Actualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Mostar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="286" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="TextNombreRefugio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TextDireccionRefugio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TextCanRefugiadosRefugio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TextVoluntariosRefugio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TextCupoRefugio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="34" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="elimar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="336" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="Actualizar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -133,7 +185,7 @@
                   <Table columnCount="5" rowCount="2">
                     <Column editable="true" title="Nombre" type="java.lang.Object"/>
                     <Column editable="true" title="Direcci&#xf3;n" type="java.lang.Object"/>
-                    <Column editable="true" title="Refugiados" type="java.lang.Object"/>
+                    <Column editable="true" title="Cantidad de Refugiados" type="java.lang.Object"/>
                     <Column editable="true" title="Voluntarios" type="java.lang.Object"/>
                     <Column editable="true" title="Cupo de personas" type="java.lang.Object"/>
                   </Table>
@@ -198,6 +250,54 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ActualizarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Volver al Menu"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextNombreRefugio">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextNombreRefugioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextDireccionRefugio">
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextCanRefugiadosRefugio">
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextVoluntariosRefugio">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextVoluntariosRefugioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextCupoRefugio">
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="elimar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="elimarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Mostar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mostrar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MostarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

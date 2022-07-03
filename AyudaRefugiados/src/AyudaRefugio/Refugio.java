@@ -6,12 +6,14 @@
 package AyudaRefugio;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -162,12 +164,41 @@ public class Refugio implements InterfaceMetodos{
        return null;
     }
     
+    public void SumarCantidadRefugiados(String nombre){
+        for (int i=0;i<refugios.size();i++) {
+            if(refugios.get(i).getNombre().equals(nombre)){
+                int cantRefugiados= refugios.get(i).getCantidadRefugiados()+1;
+                refugios.get(i).setCantidadRefugiados(CantidadRefugiados);
+            }
+        }
+    }  
+    
+    public void RestarCantidadRefugiados(String nombre){
+        for (int i=0;i<refugios.size();i++) {
+            if(refugios.get(i).getNombre().equals(nombre)){
+                int cantRefugiados= refugios.get(i).getCantidadRefugiados()-1;
+                refugios.get(i).setCantidadRefugiados(CantidadRefugiados);
+            }
+        }
+    }    
+    
+    public boolean BuscarPorNombreFlag(String nombre)throws IOException{
+        for (int i=0;i<refugios.size();i++) {
+            if(refugios.get(i).getNombre().equals(nombre))
+                return true;
+       }
+       JOptionPane.showMessageDialog(null,"El nombre del refugio ingresado no existe");
+       return false;
+    }
+    
     public  void RefugioTxt()throws IOException{
-        try (FileWriter fichero = new FileWriter("C:\\Users\\thtom\\OneDrive\\Documentos\\Poo 2\\EPA")) {
+        try (FileWriter fichero = new FileWriter("C:\\Users\\thtom\\OneDrive\\Documentos\\Poo 2\\Refugios.txt")) {
             fichero.write("IMPRIMIENDO REFUGIOS:");  
             for(int i=0;i<refugios.size();i++){
                 fichero.write(refugios.get(i).getNombre());
             }
+        }catch(IOException io){
+            JOptionPane.showMessageDialog(null,"No se ha encontrado el archivo, porfavor verifique la ruta");
         }
     }
     

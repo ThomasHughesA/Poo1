@@ -7,6 +7,11 @@ package Interface;
 import static AyudaRefugio.Main.refugio;
 import javax.swing.table.DefaultTableModel;
 import AyudaRefugio.Refugio;
+import java.awt.HeadlessException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author thtom
@@ -47,6 +52,15 @@ public class Refugios extends javax.swing.JFrame {
         BuscarRefugio = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         Actualizar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        TextNombreRefugio = new javax.swing.JTextField();
+        TextDireccionRefugio = new javax.swing.JTextField();
+        TextCanRefugiadosRefugio = new javax.swing.JTextField();
+        TextVoluntariosRefugio = new javax.swing.JTextField();
+        TextCupoRefugio = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        elimar = new javax.swing.JButton();
+        Mostar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,7 +94,7 @@ public class Refugios extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Dirección", "Refugiados", "Voluntarios", "Cupo de personas"
+                "Nombre", "Dirección", "Cantidad de Refugiados", "Voluntarios", "Cupo de personas"
             }
         ));
         jScrollPane1.setViewportView(tablaRefugios);
@@ -107,6 +121,46 @@ public class Refugios extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Volver al Menu");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        TextNombreRefugio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextNombreRefugioActionPerformed(evt);
+            }
+        });
+
+        TextVoluntariosRefugio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextVoluntariosRefugioActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Agregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        elimar.setText("Eliminar");
+        elimar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elimarActionPerformed(evt);
+            }
+        });
+
+        Mostar.setText("Mostrar");
+        Mostar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -115,15 +169,39 @@ public class Refugios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Actualizar)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(59, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextNombreRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(elimar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TextDireccionRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(TextCanRefugiadosRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(TextVoluntariosRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 75, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TextCupoRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(31, 31, 31)
                         .addComponent(BuscarRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
-                        .addComponent(jButton1)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addGap(228, 228, 228)
+                        .addComponent(Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(Mostar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,15 +209,32 @@ public class Refugios extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(BuscarRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(Actualizar)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(BuscarRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)
+                            .addComponent(Actualizar)
+                            .addComponent(Mostar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TextNombreRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextDireccionRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextCanRefugiadosRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextVoluntariosRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextCupoRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton3)
+                            .addComponent(elimar))
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,7 +251,7 @@ public class Refugios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void listaRefugios()  {
+    public void listaRefugios() throws IOException  {
         Refugio refugio=new Refugio();
         refugio.agregar(refugio1);
         refugio.agregar(refugio2);
@@ -168,10 +263,11 @@ public class Refugios extends javax.swing.JFrame {
                 "Nombre", "Direccion", "Refugiados", "Voluntarios", "Cupo de Personas",
             }
         ));
+        refugio.RefugioTxt();
     } 
+    
     public void limpiarTabla() {
-        int i = 0;
-        for(i = 0; i < tabla.getRowCount(); i++) {
+        for(int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
             i--;
         }
@@ -187,20 +283,99 @@ public class Refugios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        // TODO add your handling code here:
-        
-        limpiarTabla();
-        listaRefugios();
-    
-        
+        Refugio refugio=new Refugio();
+        refugio.agregar(refugio1);
+        refugio.agregar(refugio2);
+        refugio.agregar(refugio3);
+       
       
     }//GEN-LAST:event_ActualizarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Menu menu=new Menu();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void TextVoluntariosRefugioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextVoluntariosRefugioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextVoluntariosRefugioActionPerformed
+
+    private void TextNombreRefugioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextNombreRefugioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextNombreRefugioActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Refugio refugio=new Refugio();
+            try {
+            if (!"".equals(TextNombreRefugio.getText()) || !"".equals(TextDireccionRefugio.getText()) || !"".equals(TextCanRefugiadosRefugio.getText()) || !"".equals(TextVoluntariosRefugio.getText()) ||!"".equals(TextCupoRefugio.getText())) {
+                
+                refugio.setNombre(TextNombreRefugio.getText());
+                refugio.setDireccion(TextDireccionRefugio.getText());
+                refugio.setCantidadRefugiados(Integer.parseInt(TextCanRefugiadosRefugio.getText()));
+                refugio.setCantidadVoluntarios(Integer.parseInt(TextVoluntariosRefugio.getText()));
+                refugio.setCantidadMaxRefugiados(Integer.parseInt(TextVoluntariosRefugio.getText()));
+                
+                JOptionPane.showMessageDialog(null, "El refugio ha sido registrado.");
+            } 
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese información en todos los campos.");
+        }
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void elimarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimarActionPerformed
+        // TODO add your handling code here:
+        Refugio refugio=new Refugio();
+        try {
+            if (!"".equals(TextNombreRefugio.getText())) {
+                try {
+                    refugio.EliminarRefugio(TextNombreRefugio.getText());
+                    JOptionPane.showMessageDialog(null, "El refugio ha sido eliminado.");
+                } catch (IOException ex) {
+                    Logger.getLogger(Refugios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese información en el campo de nombre del refugio a elimar");
+        }
+        limpiarTabla();
+        try {
+            listaRefugios();
+        } catch (IOException ex) {
+            Logger.getLogger(Refugios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_elimarActionPerformed
+
+    private void MostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostarActionPerformed
+        // TODO add your handling code here:
+
+            limpiarTabla();
+        try {
+            listaRefugios();
+        } catch (IOException ex) {
+            Logger.getLogger(Refugios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_MostarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Actualizar;
     private javax.swing.JTextField BuscarRefugio;
+    private javax.swing.JButton Mostar;
+    private javax.swing.JTextField TextCanRefugiadosRefugio;
+    private javax.swing.JTextField TextCupoRefugio;
+    private javax.swing.JTextField TextDireccionRefugio;
+    private javax.swing.JTextField TextNombreRefugio;
+    private javax.swing.JTextField TextVoluntariosRefugio;
+    private javax.swing.JButton elimar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

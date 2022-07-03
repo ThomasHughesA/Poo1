@@ -6,12 +6,16 @@
 package AyudaRefugio;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author The_A
@@ -23,7 +27,8 @@ public class Refugiado extends Persona implements InterfaceMetodos{
 //Privadas
     private String Estado;
     private HashMap<String,ArrayList<Refugiado>> Refugiados=new HashMap<String,ArrayList<Refugiado>>();
-/*  
+    /*  
+    
     Constructor 
     */
     
@@ -96,6 +101,7 @@ public class Refugiado extends Persona implements InterfaceMetodos{
             return ;
         }        
         lista.add(refugiado);
+        refugio.SumarCantidadRefugiados(refugio.getNombre());
     }
     
     public void AgregarRefugio (Refugiado refugiado,Refugio refugio){
@@ -112,9 +118,11 @@ public class Refugiado extends Persona implements InterfaceMetodos{
             return ;
         }        
         lista.add(refugiado);
+        refugio.SumarCantidadRefugiados(refugio.getNombre());
     }
     
      public void AgregarRefugiado (String refugio, Refugiado refugiado){
+        Refugio refugio1=new Refugio();
         ArrayList<Refugiado> lista;
         lista = Refugiados.get(refugio);
         boolean flag = Refugiados.containsKey(refugio);
@@ -128,6 +136,7 @@ public class Refugiado extends Persona implements InterfaceMetodos{
             return ;
         }        
         lista.add(refugiado);
+        refugio1.SumarCantidadRefugiados(refugio);
     }
    
     @Override
@@ -142,28 +151,30 @@ public class Refugiado extends Persona implements InterfaceMetodos{
     
     public Object[][] getTablaRefugiados(){
         Object[][] tabla=new Object[Refugiados.size()][7];
-        Refugiados.entrySet().forEach(entry -> {
-            for (int i=0;i<Refugiados.size();i++){
-                for (int j=0;j<entry.getValue().size();j++){
-                    tabla[i][0]= entry.getKey();  
-                    tabla[i][1]= entry.getValue().get(j).getRut();
-                    tabla[i][2]= entry.getValue().get(j).getNombre();
-                    tabla[i][3]= entry.getValue().get(j).getEdad();
-                    tabla[i][4]= entry.getValue().get(j).getSexo();
-                    tabla[i][5]= entry.getValue().get(j).getNacionalidad();
-                    tabla[i][6]= entry.getValue().get(j).getEstado();
-                }
+        Refugiados.entrySet().forEach((Map.Entry<String, ArrayList<Refugiado>> entry)->{
+            for (int i=0;i<entry.getValue().size();i++){
+                System.out.print(Refugiados.size()); 
+                System.out.print(entry.getValue().size());
+                    tabla[i][0]= entry.getKey();
+                    tabla[i][1]= entry.getValue().get(i).getRut();
+                    tabla[i][2]= entry.getValue().get(i).getNombre();
+                    tabla[i][3]= entry.getValue().get(i).getEdad();
+                    tabla[i][4]= entry.getValue().get(i).getSexo();
+                    tabla[i][5]= entry.getValue().get(i).getNacionalidad();
+                    tabla[i][6]= entry.getValue().get(i).getEstado();
             }
         });
     return tabla;
     }
        
     public void eliminarRefugiado(String id){
+        Refugio refugio=new Refugio();
         Refugiados.entrySet().forEach((Map.Entry<String, ArrayList<Refugiado>> entry)->{
             for (int i=0;i<entry.getValue().size();i++){
-                    if(entry.getValue().get(i).getRut().equals(id)){
-                       entry.getValue().remove(i);
-                    }
+                if(entry.getValue().get(i).getRut().equals(id)){
+                   entry.getValue().remove(i);
+                   refugio.RestarCantidadRefugiados(entry.getValue().get(i).getNombre());
+                }
             }                  
         });
     }
@@ -199,11 +210,39 @@ public class Refugiado extends Persona implements InterfaceMetodos{
         System.out.println("Refugiados de la nación "+nacionalidad+": Rut         Nombre ");
         Refugiados.entrySet().forEach((Map.Entry<String, ArrayList<Refugiado>> entry)->{
            for (int i=0;i<entry.getValue().size();i++){
-                   if(entry.getValue().get(i).getNacionalidad().equals(nacionalidad)){                     
-                       System.out.println("                                 "+entry.getValue().get(i).getRut()+"         "+entry.getValue().get(i).getNombre());
-                       
-                   }
+                if(entry.getValue().get(i).getNacionalidad().equals(nacionalidad)){                     
+                    System.out.println("                                 "+entry.getValue().get(i).getRut()+"         "+entry.getValue().get(i).getNombre());
+
+                }
            }
         }); 
     }
+    
+    public  void RefugiadoTxt()throws IOException{
+        try (FileWriter fichero = new FileWriter("C:\\Users\\thtom\\OneDrive\\Documentos\\Poo 2\\Refugiados.txt")) {
+            ImprimirFichero(fichero);
+        }catch(IOException io){
+            JOptionPane.showMessageDialog(null,"No se ha encontrado el archivo, porfavor verifique la ruta");
+        }
+    }
+
+    private void ImprimirFichero(FileWriter fichero) {
+        Refugiados.entrySet().forEach(entry->{
+            try {  
+                fichero.write("Refugio: "+entry.getKey());
+                fichero.write("// Refugiados: ");
+                entry.getValue().forEach((k) -> {
+                    try {
+                        fichero.write(k.getNombre()+", ");
+                    } catch (IOException ex) {
+                        Logger.getLogger(Refugiado.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+                fichero.write(" ");
+            } catch (IOException ex) {
+                 JOptionPane.showMessageDialog(null,"No se ha podido imprimir Mapa Refugiados, verifique la funcion ImprimirFichero() ");
+            }
+        });
+    }
+    
 }

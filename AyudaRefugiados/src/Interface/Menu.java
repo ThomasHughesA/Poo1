@@ -139,6 +139,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void menuRefugiadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRefugiadosActionPerformed

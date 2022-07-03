@@ -9,6 +9,9 @@ import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import AyudaRefugio.Refugiado;
 import AyudaRefugio.Refugio;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Refugiados extends javax.swing.JFrame {
     public Refugiado refugiado1=new Refugiado ("1","Susana Castro Gonzalez",27,"M","España","Heridas leves en el cuerpo");
@@ -19,7 +22,9 @@ public class Refugiados extends javax.swing.JFrame {
     public Refugio refugio1=new Refugio("Jardines de la Paz","Avenida Brasil Nro 58",8,67,82);
     public Refugio refugio2=new Refugio("Iglesia San Juan","Calle Mata Nro 27",4,36,60);
     public Refugio refugio3=new Refugio("Colegio Central de Santiago","Gran Avenida 178",18,89,140);
-   
+    Refugiado refugiado= new Refugiado("1","1",1,"1","1","1 1");
+                   
+        
 
     
     /**
@@ -52,7 +57,7 @@ public class Refugiados extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        EliminarRefugiado = new javax.swing.JButton();
         buscarRefguados = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         TextRut = new javax.swing.JTextField();
@@ -92,12 +97,20 @@ public class Refugiados extends javax.swing.JFrame {
 
         tablaRefugiados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null}
             },
             new String [] {
                 "Refugio", "Rut", "Nombre", "Edad", "Sexo", "Nacionalidad", "Estado"
             }
         ));
+        tablaRefugiados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaRefugiadosMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaRefugiadosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaRefugiados);
 
         jLabel2.setText("Refugio");
@@ -115,7 +128,12 @@ public class Refugiados extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Eliminar");
+        EliminarRefugiado.setText("Eliminar");
+        EliminarRefugiado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarRefugiadoActionPerformed(evt);
+            }
+        });
 
         buscarRefguados.setText("Buscar");
         buscarRefguados.addActionListener(new java.awt.event.ActionListener() {
@@ -164,17 +182,6 @@ public class Refugiados extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
-                        .addComponent(buscarRefguados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(50, 50, 50)
-                        .addComponent(jButton2)
-                        .addGap(189, 189, 189))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -198,11 +205,22 @@ public class Refugiados extends javax.swing.JFrame {
                                         .addGap(29, 29, 29))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(736, 736, 736)))
+                                        .addGap(47, 47, 47)
+                                        .addComponent(EliminarRefugiado, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TextEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50))))))
+                                .addGap(50, 50, 50))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addComponent(buscarRefguados)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(182, 182, 182))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,8 +232,7 @@ public class Refugiados extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscarRefguados)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
@@ -229,8 +246,9 @@ public class Refugiados extends javax.swing.JFrame {
                     .addComponent(TextRefugio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Agregar)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EliminarRefugiado))
                 .addGap(23, 23, 23))
         );
 
@@ -256,8 +274,12 @@ public class Refugiados extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        try {
             // TODO add your handling code here:
             listaRefugiados();
+        } catch (IOException ex) {
+            Logger.getLogger(Refugiados.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -269,6 +291,10 @@ public class Refugiados extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        Menu menu=new Menu();
+        menu.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void TextRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextRutActionPerformed
@@ -278,23 +304,35 @@ public class Refugiados extends javax.swing.JFrame {
     private void TextNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextNombreActionPerformed
-
+    private void LimpiarTxtRefugiados(){
+        TextRut.setText("");
+        TextNombre.setText("");
+        TextEdad.setText("");
+        TextNacionalidad.setText("");        
+        TextEstado.setText("");       
+    }
+    
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         // TODO add your handling code here:
         Refugiado refugiado= new Refugiado("1","1",1,"1","1","1 1");
+        Refugio refugio=new Refugio();
             try {
-            if (!"".equals(TextRefugio.getText()) || !"".equals(TextRut.getText()) || !"".equals(TextNombre.getText()) || !"".equals(TextEdad.getText()) || !"".equals(TextNacionalidad.getText()) || !"".equals(TextEstado.getText())) {
+            if (!"".equals(TextRefugio.getText()) || !"".equals(TextRut.getText()) || !"".equals(TextNombre.getText()) || !"".equals(TextEdad.getText()) ||!"".equals(TextSexo.getText()) || !"".equals(TextNacionalidad.getText()) || !"".equals(TextEstado.getText())) {
+                
+                try {                
+                    refugio.BuscarPorNombreFlag(TextRefugio.getText());
+                } catch (IOException ex) {
+                    Logger.getLogger(Refugiados.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 refugiado.setRut(TextRut.getText());
                 refugiado.setNombre(TextNombre.getText());
                 refugiado.setEdad(Integer.parseInt(TextEdad.getText()));
+                refugiado.setSexo(TextSexo.getText());
                 refugiado.setNacionalidad(TextNacionalidad.getText());
                 refugiado.setEstado(TextEstado.getText());
-
                 refugiado.AgregarRefugiado(TextRefugio.getText(), refugiado);
                 JOptionPane.showMessageDialog(null, "El refugiado ha sido registrado.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Ingresa información en todos los campos respectivos.");
-            }
+            } 
         } catch (HeadlessException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Ingrese información en todos los campos.");
         }
@@ -305,18 +343,48 @@ public class Refugiados extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextRefugioActionPerformed
 
+    private void tablaRefugiadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRefugiadosMouseClicked
+        // TODO add your handling code here
+        int filaRefugiados = tablaRefugiados.rowAtPoint(evt.getPoint());
+        TextRefugio.setText(tablaRefugiados.getValueAt(filaRefugiados, 0).toString());
+        TextRut.setText(tablaRefugiados.getValueAt(filaRefugiados, 1).toString());
+        TextNombre.setText(tablaRefugiados.getValueAt(filaRefugiados, 2).toString());
+        TextEdad.setText(tablaRefugiados.getValueAt(filaRefugiados, 3).toString());
+        TextSexo.setText(tablaRefugiados.getValueAt(filaRefugiados, 4).toString());
+        TextNacionalidad.setText(tablaRefugiados.getValueAt(filaRefugiados, 5).toString());
+        TextEstado.setText(tablaRefugiados.getValueAt(filaRefugiados, 6).toString());
+        
+    }//GEN-LAST:event_tablaRefugiadosMouseClicked
+
+    private void tablaRefugiadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRefugiadosMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaRefugiadosMousePressed
+
+    private void EliminarRefugiadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarRefugiadoActionPerformed
+        // TODO add your handling code here:
+        Refugiado refugiado= new Refugiado("1","1",1,"1","1","1 1");
+            try {
+            if (!"".equals(TextRut.getText())) {
+                refugiado.eliminarRefugiado(TextRut.getText());
+                JOptionPane.showMessageDialog(null, "El refugiado ha sido Eliminado.");
+            } 
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese el rut en el campo para eliminar el Refugiado.");
+        }
+        
+        
+    }//GEN-LAST:event_EliminarRefugiadoActionPerformed
+
     
-      public void listaRefugiados() {
-      
-        Refugiado refugiado= new Refugiado("1","1",1,"1","1","1 1");;
-               
+      public void listaRefugiados() throws IOException {
         refugio.agregar(refugio1);
         refugio.agregar(refugio2);
         refugio.agregar(refugio3);
-        
+
         refugiado.AgregarRefugio(refugio1,refugiado1);
         refugiado.AgregarRefugio(refugio2,refugiado2);
         refugiado.AgregarRefugio(refugio3,refugiado3);
+        
         
         tablaRefugiados.setModel(new javax.swing.table.DefaultTableModel
         (
@@ -325,9 +393,13 @@ public class Refugiados extends javax.swing.JFrame {
                 "Refugio", "Rut", "Nombre", "Edad", "Sexo", "Nacionalidad", "Estado"
             }
         ));
+        
+        refugiado.RefugiadoTxt();
+        
     } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Agregar;
+    private javax.swing.JButton EliminarRefugiado;
     private javax.swing.JTextField TextEdad;
     private javax.swing.JTextField TextEstado;
     private javax.swing.JTextField TextNacionalidad;
@@ -337,7 +409,6 @@ public class Refugiados extends javax.swing.JFrame {
     private javax.swing.JTextField TextSexo;
     private javax.swing.JButton buscarRefguados;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
